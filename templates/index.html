@@ -1,39 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="pure-g-r" id="layout">
-    {% include 'sidebar.html' %}
-    <div class="pure-u-1">
-        <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
+<div class="uk-section uk-section">
+    <div class="uk-container uk-container-small">
+        <div class="uk-child-width-expand@s" uk-grid>
+            <div>
+                <h1 class="uk-text-lead uk-text-primary uk-margin-remove-bottom">{{ SITENAME }}</h1>
+                <h1 class="uk-text-meta uk-text-secondary uk-margin-remove-top">
                     {% block pagetitle %}
-                        {% if not articles_page.has_previous() %}
-                            Latest posts
-                        {% else %}
-                            Posts
-                        {% endif %}
+                    {% if not articles_page.has_previous() %}Latest posts{% else %}Posts
+                    {% endif %}
                     {% endblock pagetitle %}
                     {% if articles_page.has_previous() %}
-                        &ndash; Page&nbsp;{{ articles_page.number }}
+                    &ndash; Page&nbsp;{{ articles_page.number }}
                     {% endif %}
                 </h1>
-                {% for article in articles_page.object_list %}
-                    {% include 'post.html' %}
-                    {% if MATH is defined and not MATH['auto_insert'] %}
-			{% if page and page.mathjax or article and article.mathjax %}
-                            {% set mathjax = True %}
-                        {% endif %}
-                    {% endif %}
-                    {% if loop.last and mathjax is defined %}
-                        {{ MATHJAXSCRIPT }}
-                    {% endif %}
-                {% endfor %}
-                {% include 'pagination.html' %}
-                {% include 'footer.html' %}
+            </div>
+            <div>
+            </div>
+            <div>
+                <div class="uk-align-right">
+                    <ul class="uk-iconnav uk-iconnav-vertical">
+                        {% for title, link in SOCIAL %}
+                        <li><a style="text-decoration: none;" href="{{ link }}"><i
+                            class="fa fa-{{ title|lower }}-square" aria-hidden="true"></i>&nbsp;
+                            {{ title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
+        <hr class="uk-divider-icon"><br>
+        {% for article in articles_page.object_list %}
+        {% include 'post.html' %}
+        {% if MATH is defined and not MATH['auto_insert'] %}
+        {% if page and page.mathjax or article and article.mathjax %}
+        {% set mathjax = True %}
+        {% endif %}
+        {% endif %}
+        {% if loop.last and mathjax is defined %}
+        {{ MATHJAXSCRIPT }}
+        {% endif %}
+        {% endfor %}
     </div>
+    {% include 'footer.html' %}
 </div>
 {% endblock content %}

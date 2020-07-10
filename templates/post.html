@@ -1,14 +1,18 @@
-<section class="post">
-    <header class="post-header">
-        <a href="{{ SITEURL }}/{{ article.author.url }}" title="See posts by {{ article.author }}">
-            {% if article.author_gravatar %}
-                <img class="avatar" alt="{{ article.author }}" src="{{ article.author_gravatar }}">
-            {% endif %}
-        </a>
-        <h3><a class="post-title" href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-            <p class="post-meta">{{ article.summary }}</p>
-            <p class="post-meta">
-                in <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a> &middot; {{ article.locale_date }}
-            </p>
-    </header>
-</section>
+<div class="uk-padding uk-padding-remove-top">
+    <div class="uk-card uk-card-default">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-expand">
+                    <a href="{{ SITEURL }}/{{ article.url }}" class="uk-button uk-button-text">
+                        <h3 class="uk-card-title uk-margin-remove-bottom uk-text-primary">{{ article.title }}</h3>
+                    </a>
+                    <p class="uk-text-meta uk-margin-remove-top"><time
+                            datetime="2016-04-01T19:00">{{ article.locale_date }}</time></p>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body uk-padding-remove-vertical">
+            <p>{{ article.summary }}</p>
+        </div>
+    </div>
+</div>
